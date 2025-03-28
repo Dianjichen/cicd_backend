@@ -92,7 +92,7 @@ DATABASES = {
         "NAME": "neondb",
         "USER": "neondb_owner",
         "PASSWORD": "npg_r4mdFIaJvUY0",
-        "HOST": "ep-late-feather-a7wl954v-pooler.ap-southeast-2.aws.neon.tech",
+        "HOST": "ep-calm-sound-a7n6dts0-pooler.ap-southeast-2.aws.neon.tech",
         "PORT": "5432",
     }
 }
