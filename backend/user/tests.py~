@@ -18,6 +18,8 @@ class RegisterViewTest(APITestCase):
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(User.objects.get().username, 'testuser')
     def test_login_user(self):
+
+        self.user=User.objects.create_user(username='testuser',password='test123')
         print("✅ user.tests.py loaded")
         url = reverse('login')
         data = {

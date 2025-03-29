@@ -24,7 +24,7 @@ class RegisterViewTest(APITestCase):
         url = reverse('login')
         data = {
             'username': 'testuser',
-            'password': 'testpassword123'
+            'password': 'test123'
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
