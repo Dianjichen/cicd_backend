@@ -13,7 +13,7 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = UserSerializer
 
 class LoginView(generics.CreateAPIView):
-    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
     serializer_class = UserSerializer
 
     def post(self, request,):
