@@ -38,4 +38,4 @@ class LogoutView(APIView):
 
     def post(self, request):
         request.user.auth_token.delete()  # Deletes the user's auth token
-        return Response({"message": "Successfully logged out"}, status=204)  # No content response
+        return Response({"message": "Successfully logged out"}, status=204),  # No content response
