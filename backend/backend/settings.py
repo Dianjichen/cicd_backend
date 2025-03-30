@@ -97,7 +97,7 @@ DATABASES = {
     }
 }
 
-if os.getenv('DJANGO_TEST_Env'):
+if os.getenv('DJANGO_TEST_ENV'):
     DATABASES = {
         'default': {
             "ENGINE": "django.db.backends.sqlite3",
