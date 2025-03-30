@@ -94,6 +94,10 @@ DATABASES = {
         "PASSWORD": "npg_r4mdFIaJvUY0",
         "HOST": "ep-late-feather-a7wl954v-pooler.ap-southeast-2.aws.neon.tech",
         "PORT": "5432",
+        'TEST': {
+            'NAME': 'test_neondb',
+            'SERIALIZE': False,  # Helps avoid locking issues
+        }
     }
 }
 
