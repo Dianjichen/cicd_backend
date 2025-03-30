@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-seoou^g+l472f)w&%_ksp@4^+944)!jcoek$2of5pv5o=n%_o=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -94,6 +94,10 @@ DATABASES = {
         "PASSWORD": "npg_r4mdFIaJvUY0",
         "HOST": "ep-late-feather-a7wl954v-pooler.ap-southeast-2.aws.neon.tech",
         "PORT": "5432",
+        'TEST': {
+            'NAME': 'test_neondb',
+            'SERIALIZE': False,  # Helps avoid locking issues
+        }
     }
 }
 
@@ -145,3 +149,36 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React (local)
+    "https://ci-cd-assignment-frontend.vercel.app",  # Production frontend
+]
+
+# Allow credentials (important if using authentication)
+CORS_ALLOW_CREDENTIALS = True
+
+# Allowed HTTP methods (optional, but recommended)
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "OPTIONS",
+]
+
+# Allowed headers (optional, but useful for Authorization headers)
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+]
+
