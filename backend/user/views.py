@@ -1,24 +1,25 @@
 from rest_framework import generics
 from rest_framework.authtoken.admin import User
-from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
-
 from .serializers import UserSerializer
+
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = UserSerializer
 
-class LoginView(generics.CreateAPIView):
+
+class LoginView(APIView):
     permission_classes = (AllowAny,)
     serializer_class = UserSerializer
 
-    def post(self, request,):
-        username = request.data.get("username")
-        password = request.data.get("password")
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
 
         if not username or not password:
             return Response({"error": "Username and password are required"}, status=400)
@@ -29,6 +30,12 @@ class LoginView(generics.CreateAPIView):
             return Response({"error": "Invalid username or password"}, status=401)
 
         token, _ = Token.objects.get_or_create(user=user)
+        return Response({"token": token.key}, status=200)
 
-        return Response({"token": token.key},status=200)
 
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]  # Ensure only authenticated users can log out
+
+    def post(self, request):
+        request.user.auth_token.delete()  # Deletes the user's auth token
+        return Response({"message": "Successfully logged out"}, status=204)  # No content response
