@@ -4,9 +4,13 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
+        fields = ['id', 'username', 'email', 'password']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = User.objects.create_user(** validated_data)
+        password = validated_data.pop('password', None)
+        user = User(**validated_data)  # Create user without password
+        if password:
+            user.set_password(password)  # Hash the password correctly
+        user.save()
         return user
